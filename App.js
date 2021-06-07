@@ -1,52 +1,28 @@
-import React from 'react'
-
-const Header = (props) => {
-  return (
-    <div>
-      <h1>
-        {props.name}
-      </h1>
-    </div>
-  )
-}
-
-const Content = (props) => {
-  return (
-    <div>
-      <p>
-        The part "{props.name}" has {props.number} exercises.
-      </p>
-    </div>
-  )
-}
-
-const Total = (props) => {
-  return (
-    <div>
-      <p>
-        Total number of excercises is {props.number}.
-      </p>
-    </div>
-  )
-}
-
+import React, { useState } from 'react'
 
 const App = () => {
-  const course = 'Half Stack application development'
-  const part1 = 'Fundamentals of React'
-  const exercises1 = 10
-  const part2 = 'Using props to pass data'
-  const exercises2 = 7
-  const part3 = 'State of a component'
-  const exercises3 = 14
+  // save clicks of each button to its own state
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
 
   return (
     <div>
-      <Header name={course} />
-      <Content name={part1} number={exercises1} />
-      <Content name={part2} number={exercises2} />
-      <Content name={part3} number={exercises3} />
-      <Total number={exercises1 + exercises2 + exercises3}  />
+      <h1> give feedback </h1>
+      <button onClick={() => setGood(good + 1)}>
+      good
+      </button>
+      <button onClick={() => setNeutral(neutral + 1)}>
+      neutral
+      </button>
+      <button onClick={() => setBad(bad + 1)}>
+      bad
+      </button>
+      <h1> statistics </h1>
+
+      <div> good {good} </div>
+      <div> neutral {neutral} </div>
+      <div> bad {bad} </div>
     </div>
   )
 }
