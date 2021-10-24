@@ -4,9 +4,6 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
 
-const points = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 }
-const copy = { ...points }
-
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often',
@@ -18,25 +15,45 @@ const App = () => {
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blod tests when dianosing patients'
   ]
 
+  const [votes,setVotes] = useState(Array(anecdotes.length).fill(0))
+  const addVotes = (x) => {
+    let copies = [...votes]
+      copies[x] += 1
+      setVotes(copies)
+  }
   const [selected, setSelected] = useState(0)
 
-  const copy = { ...points }
-  const setPoints = () => {
-    copy[selected] += 1
-    {console.log(points)}
-    {console.log(copy)}
-    }
+  const vote = () => {
+    addVotes(selected)
+    funkts(votes)
+  }
+  const next = () => {
+    setSelected(getRandomInt(anecdotes.length))
+  }
 
+  const [maxvalue, setValue] = useState(0)
+  const [index, setIndex] = useState(0)
+
+
+  const funkts = (arr) => {
+    for(var i=0;i<arr.length;i++){
+        if(arr[i]>maxvalue){
+        setValue(arr[i])
+        setIndex(i);
+       }
+    }
+  }
 
   return (
     <div>
+      <h1> Anecdote of the day</h1>
       {anecdotes[selected]}
-      <button onClick={() => setSelected(getRandomInt(6))}>
-      next anecdote
-      </button>
-      <button onClick={() => setPoints()}>
-      vote
-      </button>
+      <div> has {votes[selected]} votes </div>
+      <button onClick={vote}> vote </button>
+      <button onClick={next}> next anecdote </button>
+      <h1> Anecdote with the most votes</h1>
+      {anecdotes[index]}
+      <div> has {votes[index]} votes </div>
     </div>
   )
 }
