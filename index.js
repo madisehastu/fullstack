@@ -10,7 +10,7 @@ const Course = ({ course }) => {
           {course.name}
           </h1>
           {course.parts.map(part =>
-          <ul>
+          <ul key={part.id}>
             {part.name} {part.exercises}
           </ul>)}
           <b>
